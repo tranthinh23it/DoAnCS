@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+   <children>
+      <HBox prefHeight="600.0" prefWidth="900.0">
+         <children>
+            <Pane prefHeight="600.0" prefWidth="306.0" styleClass="panel" stylesheets="@../Css/style.css">
+               <children>
+                  <ImageView fitHeight="76.0" fitWidth="93.0" layoutX="29.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" styleClass="round-image-view">
+                     <image>
+                        <Image url="@../Img/logo.png" />
+                     </image></ImageView>
+                  <Label layoutX="111.0" layoutY="38.0" prefHeight="40.0" prefWidth="82.0" text="GIT ">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="33.0" />
+                     </font></Label>
+                  <Label layoutX="50.0" layoutY="179.0" prefHeight="40.0" prefWidth="142.0" text="Log in">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="32.0" />
+                     </font></Label>
+                  <Label layoutX="50.0" layoutY="222.0" prefHeight="27.0" prefWidth="207.0" text="Log in to GIT Message to connect">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Button layoutX="50.0" layoutY="397.0" mnemonicParsing="false" onMouseClicked="#nextScene" prefHeight="32.0" prefWidth="207.0" styleClass="button-log-in" stylesheets="@../Css/style.css" text="Log in" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="27.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Img/lock-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="16.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill></Button>
+                  <TextField fx:id="acc_field" layoutX="50.0" layoutY="306.0" prefHeight="33.0" prefWidth="207.0" promptText="Email" styleClass="text-input" stylesheets="@../Css/style.css">
+                     <font>
+                        <Font name="Berlin Sans FB" size="14.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="pass_field" layoutX="50.0" layoutY="338.0" prefHeight="32.0" prefWidth="207.0" promptText="Password" styleClass="prompt-text">
+                     <font>
+                        <Font name="Berlin Sans FB" size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <Label layoutX="152.0" layoutY="370.0" prefHeight="27.0" prefWidth="102.0" styleClass="label_under" stylesheets="@../Css/style.css" text="Forgot password?" textFill="#000d71">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="244.0" prefHeight="27.0" prefWidth="181.0" text="with you friend">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="552.0" onMouseClicked="#Exit" prefHeight="40.0" prefWidth="40.0" styleClass="label_under" stylesheets="@../Css/style.css" text="Exit" textFill="#000d71">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="122.0" layoutY="76.0" text="Message">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="34.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <VBox prefHeight="613.0" prefWidth="595.0">
+               <children>
+                  <Pane id="btn_signup" prefHeight="600.0" prefWidth="578.0">
+                     <children>
+                        <ImageView fitHeight="623.0" fitWidth="603.0" layoutX="-4.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Img/login-1.png" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="422.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#createAccount" prefHeight="27.0" prefWidth="155.0" styleClass="button-sign-up" stylesheets="@../Css/style.css" text="Create an account" textFill="#000d71">
+                           <font>
+                              <Font name="Berlin Sans FB" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="42.0" layoutY="455.0" minHeight="27.0" minWidth="28.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="28.0" styleClass="round-button" stylesheets="@../Css/style.css">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Img/arrow-left.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
+                        <Button layoutX="543.0" layoutY="455.0" minHeight="27.0" minWidth="28.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="28.0" styleClass="round-button" stylesheets="@../Css/style.css">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Img/arrow-right.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</Pane>

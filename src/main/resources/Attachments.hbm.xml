@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="DTO.Attachments" table="Attachments" schema="dbo" catalog="ChattingApplication">
+        <id name="attachmentId">
+            <column name="AttachmentID" sql-type="int"/>
+            <generator class="native"></generator>
+        </id>
+        <property name="messageId">
+            <column name="MessageID" sql-type="int" not-null="true"/>
+        </property>
+        <property name="fileName">
+            <column name="FileName" sql-type="nvarchar(255)"/>
+        </property>
+        <property name="fileType">
+            <column name="FileType" sql-type="nvarchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="fileSize">
+            <column name="FileSize" sql-type="int" not-null="true"/>
+        </property>
+        <property name="fileUrl">
+            <column name="FileURL" sql-type="nvarchar(255)" not-null="true"/>
+        </property>
+        <property name="senderId">
+            <column name="SenderId" sql-type="int" not-null="true"/>
+        </property>
+        <property name="receiverId">
+            <column name="ReceiverId" sql-type="int" not-null="true"/>
+        </property>
+        <property name="groupId">
+            <column name="GroupId" sql-type="int" not-null="true"/>
+        </property>
+        <property name="dataFile">
+            <column name="DataFile" sql-type="varbinary(MAX)" not-null="true"/>
+        </property>
+
+    </class>
+</hibernate-mapping>

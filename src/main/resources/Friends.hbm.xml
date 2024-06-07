@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="DTO.Friends" table="Friends" schema="dbo" catalog="ChattingApplication">
+        <id name="friendShipId" >
+            <column name="FriendshipID"  sql-type="int"/>
+            <generator class="native"/>
+        </id>
+        <property name="userID1" >
+            <column name="UserID1" sql-type="int"/>
+        </property>
+        <property name="userID2" >
+            <column name="UserID2" sql-type="int"/>
+        </property>
+        <property name="friendShipStatus" >
+          <column name="FriendshipStatus" sql-type="nvarchar(50)" not-null="false"/>
+        </property>
+    </class>
+</hibernate-mapping>

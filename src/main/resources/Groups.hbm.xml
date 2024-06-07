@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="DTO.Groups" table="Groups" schema="dbo" catalog="ChattingApplication">
+        <id name="groupId">
+            <column name="GroupID" sql-type="int"/>
+            <generator class="native"></generator>
+        </id>
+        <property name="groupName">
+            <column name="GroupName" sql-type="nvarchar(100)" length="100"/>
+        </property>
+    </class>
+</hibernate-mapping>

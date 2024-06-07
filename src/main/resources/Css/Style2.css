@@ -1,0 +1,114 @@
+#leftBar{
+    -fx-border-color: #594DD2;
+    -fx-background-color: #594DD2;
+    -fx-border-radius: 40px;
+    -fx-background-radius: 40px;
+}
+#listFriend{
+    -fx-border-color: black;
+    -fx-border-radius: 8px;
+}
+#groupChat{
+    -fx-border-color: #DDDDDD;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-background-color: #FFFFFF;
+    -fx-padding:  5 35;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+#titlefriend{
+    -fx-border-color: #DDDDDD;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-background-color: #FFFFFF;
+    -fx-padding:  5 35;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+#tabpane {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5px; /* Adjust the radius as needed */
+}
+
+#chatPane{
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 8px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px;
+}
+#boderpane {
+    -fx-background-color: #000d71;
+    -fx-background-radius: 15px; /* Sử dụng giá trị số nguyên cho bán kính cong của nền */
+    -fx-border-width: 8px; /* Đúng là border-width, không phải boder-witdh */
+    -fx-border-style: solid; /* Đúng là border-style, không phải boder-style */
+    -fx-border-color: #000d71;
+}
+
+#searchFriend{
+    -fx-border-radius: 5px;
+    -fx-background-color: #F2F2F2;
+
+}
+
+#stack1{
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+}
+#home{
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 12px;
+}
+#message{
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 12px;
+}
+#chats{
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 12px;
+}
+#textMess{
+    -fx-background-color: #F2F2F2;
+    -fx-background-radius: 30;
+}
+
+#paneright{
+    -fx-background-color: #DDDDDD;
+}
+#paneleft {
+    -fx-background-color: #DDDDDD;
+}
+
+#paneChat{
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 8px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px;
+}
+#butSearch{
+    -fx-border-color: #F3F3F3;
+    -fx-border-radius: 10px;
+    -fx-background-color: #EEEEEE;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #5E5E5E;
+}
+#buttonSend{
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-background-color: #FFFFFF;
+
+}
+.buttonLeft{
+    -fx-background-color: #594DD2;
+}
+.buttonLeft:hover{
+    -fx-background-color: #594DD2;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0 0 0 3px;
+}
+
+.hboxSearch{
+    -fx-background-color:  #F2F2F2;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30;
+}

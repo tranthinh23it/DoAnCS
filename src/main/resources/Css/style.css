@@ -1,0 +1,71 @@
+.round-button {
+    -fx-background-radius: 50em;
+    -fx-min-width: 10px;
+    -fx-min-height: 10px;
+}
+.button-sign-up {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+    -fx-background-radius: 5;
+    -fx-underline: true;
+}
+.panel {
+    -fx-background-color: rgb(255, 255, 255);
+}
+.grey-background {
+    -fx-border-color: black;
+    -fx-background-color: #f2f2f2;
+}
+.text-input .prompt-text {
+    -fx-text-fill: black;
+    -fx-border-width: 1px;
+}
+.label_under:hover {
+    -fx-underline: true;
+}
+.button-log-in {
+    -fx-background-color: #6951ff;
+}
+.white-background {
+    -fx-background-color: white;
+}
+.button-create {
+    -fx-background-color: #6951ff;
+    -fx-border-width: 0;
+    -fx-background-radius: 5;
+
+}
+.parent{
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.headerCo{
+    -fx-background-color: #E5AB3A;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px 15px;
+}
+.bodyname{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.border-pane {
+    -fx-background-color: white;
+    -fx-border-color: #6951ff;
+    -fx-border-width: 3;
+}
+.blue-background {
+    -fx-background-color: #000d71;
+}
+.editPro{
+    -fx-background-color: #000d71;
+    -fx-text-fill: #FFFFFF;
+}
+.proFile{
+    -fx-background-color: #FFFFFF;
+}
+.outpane{
+    -fx-background-color:#000d71 ;
+
+}

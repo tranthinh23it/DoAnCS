@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="DTO.GroupMessages" table="GroupMessages" schema="dbo" catalog="ChattingApplication">
+        <id name="groupMessageId">
+            <column name="GroupMessageID" sql-type="int"/>
+            <generator class="native"></generator>
+        </id>
+        <property name="groupId">
+            <column name="GroupID" sql-type="int"/>
+        </property>
+        <property name="senderId">
+            <column name="SenderID" sql-type="int"/>
+        </property>
+        <property name="messageContent">
+            <column name="MessageContent" sql-type="nvarchar(max)" length="2147483647" not-null="true"/>
+        </property>
+        <property name="sentTime">
+            <column name="SentTime" sql-type="datetime" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
