@@ -61,6 +61,8 @@ public class StatusController {
 
     @FXML
     void form_chat(MouseEvent event) throws IOException {
+        FormChat.setUsername(LoginController.currentUser.getUsername());
+        UpdateInfor.setUsername(LoginController.currentUser.getUsername());
         FXMLLoader fxmlLoader = new FXMLLoader(FormChat.class
                 .getResource("form_chat.fxml"));
         Parent root = fxmlLoader.load();

@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -74,6 +75,8 @@ public class FormChat implements Initializable{
     private ListView<Groups> list_groups;
     @FXML
     private Label nick_name;
+    @FXML
+    private ImageView imgAvatar;
 
 
 
@@ -108,9 +111,8 @@ public class FormChat implements Initializable{
                     HBox hBox = new HBox();
                     hBox.setAlignment(Pos.CENTER_LEFT);
                     hBox.setPadding(new Insets(5, 5, 5, 5));
-
-                    //set image nưa
-                    ImageView imageView = new ImageView(new Image("file:/C:/Users/my computer/Desktop/Java FX/ChattingApp/src/main/resources/Img/ava.png"));
+                    //Add image
+                    ImageView imageView = new ImageView(UserDAO.getImage(user.getUsername()));
                     imageView.setFitWidth(36);
                     imageView.setFitHeight(36);
                     imageView.setClip(new Circle(18,18,18));
@@ -133,6 +135,10 @@ public class FormChat implements Initializable{
         });
         list_friends.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue != null) {
+                imgAvatar.setImage(UserDAO.getImage(newValue.getUsername()));
+                imgAvatar.setFitWidth(44);
+                imgAvatar.setFitHeight(44);
+                imgAvatar.setClip(new Circle(22,22,22));
                 User_name.setText(newValue.getUsername());
                 nick_name.setText(newValue.getNickName());
                 selectedUser = newValue;
@@ -157,7 +163,7 @@ public class FormChat implements Initializable{
                     hBox.setAlignment(Pos.CENTER_LEFT);
                     hBox.setPadding(new Insets(5, 5, 5, 5));
 
-                    ImageView imageView = new ImageView(new Image("file:/C:/Users/my computer/Desktop/Java FX/ChattingApp/src/main/resources/Img/ava.png"));
+                    ImageView imageView = new ImageView(GroupMessages_DAO.getImage(String.valueOf(group.getGroupId())));
                     imageView.setFitWidth(36);
                     imageView.setFitHeight(36);
                     imageView.setClip(new Circle(18,18,18));
@@ -180,6 +186,10 @@ public class FormChat implements Initializable{
         });
         list_groups.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue != null) {
+                imgAvatar.setImage(GroupMessages_DAO.getImage(Arrays.toString(newValue.getGroupImage())));
+                imgAvatar.setFitWidth(44);
+                imgAvatar.setFitHeight(44);
+                imgAvatar.setClip(new Circle(22,22,22));
                 User_name.setText(newValue.getGroupName());
                 selectedGroup = newValue;
                 list_friends.getSelectionModel().clearSelection();
@@ -456,7 +466,7 @@ public class FormChat implements Initializable{
         hBox.setAlignment(Pos.BOTTOM_LEFT);
         hBox.setPadding(new Insets(1,1,5,10));
 
-        ImageView imageView = new ImageView(UserDAO.getImage(username));
+        ImageView imageView = new ImageView(UserDAO.getImage(usernam));
         imageView.setFitWidth(36);
         imageView.setFitHeight(36);
         imageView.setClip(new Circle(18,18,18));
@@ -496,7 +506,7 @@ public class FormChat implements Initializable{
         hBox.setAlignment(Pos.BOTTOM_LEFT);
         hBox.setPadding(new Insets(1,1,5,10));
 
-        ImageView imageView = new ImageView(UserDAO.getImage(username));
+        ImageView imageView = new ImageView(UserDAO.getImage(usernam));
         imageView.setFitWidth(36);
         imageView.setFitHeight(36);
         imageView.setClip(new Circle(18,18,18));

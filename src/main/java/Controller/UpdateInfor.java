@@ -5,7 +5,6 @@ import DAO.UserDAO;
 import DTO.Users;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,52 +29,40 @@ public class UpdateInfor {
     @FXML
     private ImageView imgView;
     @FXML
-    private  Label email_u;
-
+    private Label email_u;
     @FXML
-    private  Label full_name;
-
+    private Label full_name;
     @FXML
-    private   Label nick_name;
-
+    private Label nick_name;
     @FXML
-    private  Label place;
-
+    private Label place;
     @FXML
-    private  Label user_name;
-
+    private Label user_name;
     @FXML
-    private  Label Save;
-
+    private Label Save;
     @FXML
-    private  TextField edit_email;
-
+    private TextField edit_email;
     @FXML
-    private  TextField edit_fulname;
-
+    private TextField edit_fulname;
     @FXML
-    private  TextField edit_nickname;
-
+    private TextField edit_nickname;
     @FXML
-    private  TextField edit_place;
-    private File selectedFile;
-    private FileChooser fileChooser;
-
+    private TextField edit_place;
     @FXML
     private Label editImg;
-
     @FXML
-    private  TextField edit_username;
-    @FXML
-    private Button btn;
+    private TextField edit_username;
+    private File selectedFile;
 
+    private FileChooser fileChooser;
     private static String username;
-
+    @FXML
+    private Label delete;
     public static void setUsername(String username) {
         UpdateInfor.username = username;
     }
 
-    public void loadInfor(){
+    public void loadInfor() {
         List<Users> list = ListUser.getUSer(username);
         for (Users users : list) {
             if (users.getAvatarUrl() != null) {
@@ -95,30 +82,36 @@ public class UpdateInfor {
         List<Users> list = ListUser.getUSer(username);
         String userna = edit_username.getText();
         String fulna = edit_fulname.getText();
-        String em= edit_email.getText();
-        String nick= edit_nickname.getText();
+        String em = edit_email.getText();
+        String nick = edit_nickname.getText();
         String place = edit_place.getText();
 
-        for (Users us : list){
-            if (userna.equals("")){
+        for (Users us : list) {
+            if (userna.isEmpty()) {
                 userna = us.getUsername();
             }
-            if (fulna.equals("")){
+            if (fulna.isEmpty()) {
                 fulna = us.getFullName();
             }
-            if (em.equals("")){
+            if (em.isEmpty()) {
                 em = us.getEmail();
             }
-            if (nick.equals("")){
+            if (nick.isEmpty()) {
                 nick = us.getNickName();
             }
-            if (place.equals("")){
-                place=us.getPlace();
+            if (place.isEmpty()) {
+                place = us.getPlace();
             }
         }
         ListUser.updateInfo(userna, fulna, em, nick, null, place);
 
-        System.out.println(selectedFile!=null);
+//        Image image = imgView.getImage();
+//        byte[] imageData = null;
+//        if (image != null) {
+//            imageData = getImageData(image);
+//            UserDAO.saveImageToDatabase("Truong Hai", imageData);
+//        }
+
         if (selectedFile != null) {
             try (FileInputStream fis = new FileInputStream(selectedFile)) {
                 byte[] fileContent = new byte[(int) selectedFile.length()];
@@ -133,6 +126,7 @@ public class UpdateInfor {
         } else {
             System.out.println("File selection cancelled.");
         }
+        //-------------------------------------
 
         edit_username.clear();
         edit_nickname.clear();
@@ -143,10 +137,10 @@ public class UpdateInfor {
         Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
         infoAlert.setTitle("Thông báo thông tin");
         infoAlert.setHeaderText(null);
-        infoAlert.setContentText("Update Successfull!");
+        infoAlert.setContentText("Update Successful!");
         infoAlert.showAndWait();
     }
-    //edit image button
+
     @FXML
     public void editImage() {
         fileChooser = new FileChooser();
@@ -156,7 +150,7 @@ public class UpdateInfor {
         );
         fileChooser.setTitle("Choose an image");
         Stage stage = (Stage) editImg.getScene().getWindow();
-        File selectedFile = fileChooser.showOpenDialog(stage);
+        selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
             System.out.println(selectedFile.getAbsolutePath());
@@ -164,7 +158,6 @@ public class UpdateInfor {
                 byte[] fileContent = new byte[(int) selectedFile.length()];
                 fis.read(fileContent);
 
-                // Convert byte array to Image
                 ByteArrayInputStream bis = new ByteArrayInputStream(fileContent);
                 Image decodedImage = new Image(bis);
                 imgView.setImage(decodedImage);
@@ -174,14 +167,14 @@ public class UpdateInfor {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                showAler("Error", "Error", "Could not load the image.");
+                showAlert("Error", "Error", "Could not load the image.");
             }
         } else {
-            showAler("Error", "Error", "Please choose an image");
+            showAlert("Error", "Error", "Please choose an image.");
         }
     }
-    //Show alert
-    public static void showAler(String title, String header, String content){
+
+    public static void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -189,7 +182,7 @@ public class UpdateInfor {
         alert.showAndWait();
     }
 
-    public byte[] getImageData(Image image){
+    public byte[] getImageData(Image image) {
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
         int[] pixels = new int[width * height];
@@ -203,12 +196,17 @@ public class UpdateInfor {
 
         return buffer.array();
     }
-
-    //main
-//    public static void main(String[] args) {
-//        List<Users> list = ListUser.searchByUsername("hai");
-//        for (Users users : list){
-//            System.out.println(users.getUsername());
-//        }
-//    }
+    //
+    @FXML
+    public void deleteAvatar() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm");
+        alert.setHeaderText(null);
+        alert.setContentText("Do you want to delete your avatar?");
+        alert.showAndWait();
+        if (alert.getResult().getText().equals("OK")) {
+            imgView.setImage(new Image("file:E:/KY2/nhaps/DoAnCS/src/main/resources/Img/null_avt.png"));
+            UserDAO.saveImageToDatabase(username, null);
+        }
+    }
 }

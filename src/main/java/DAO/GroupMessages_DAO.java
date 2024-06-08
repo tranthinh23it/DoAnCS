@@ -2,16 +2,28 @@ package DAO;
 
 import DTO.GroupMessages;
 import DTO.Groups;
+import javafx.scene.image.Image;
+import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupMessages_DAO {
     private static SessionFactory sessionFactory;
+
+    private FileChooser fileChooser;
+    private File selectedFile;
 
     public static List<GroupMessages> loadGroupMessages(int groupId) {
         Connected.connection(GroupMessages.class);
@@ -112,8 +124,48 @@ public class GroupMessages_DAO {
         }
         return id;
     }
+    // JDBC
+    public static void saveImageToDatabase(String groupID, byte[] image) {
+        String sql = "UPDATE Groups SET GroupImage = ? WHERE GroupID = ?";
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=ChattingApplication;user=sa;password=123;encrypt=false;");
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setBytes(1, image);
+            ps.setString(2, groupID);
+            ps.executeUpdate();
+
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Image getImage(String groupID) {
+        String sql = "SELECT GroupImage FROM Groups WHERE GroupID = ?";
+        Image image = null;
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=ChattingApplication;user=sa;password=123;encrypt=false;");
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, groupID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                byte[] imageData = rs.getBytes("GroupImage");
+                if (imageData != null) {
+                    ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+                    image = new Image(bis);
+                }
+            }
+
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return image;
+    }
     public static void main(String[] args) {
         System.out.println(getMessageGrId());
     }
-
 }

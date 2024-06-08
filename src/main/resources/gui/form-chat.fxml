@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="boderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="905.0" stylesheets="@../Css/Style2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FormChat">
@@ -106,7 +105,6 @@
                      <font>
                         <Font name="Berlin Sans FB" size="14.0" />
                      </font></TextField>
-                  <Circle fill="WHITE" layoutX="38.0" layoutY="34.0" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
                   <Label fx:id="User_name" layoutX="73.0" layoutY="14.0" text="hthinhtran_307">
                      <font>
                         <Font name="Berlin Sans FB" size="18.0" />
@@ -165,6 +163,7 @@
                         </Button>
                      </children>
                   </HBox>
+                  <ImageView fx:id="imgAvatar" fitHeight="53.0" fitWidth="53.0" layoutX="18.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
             <Label fx:id="TitleChat" layoutX="29.0" layoutY="18.0" stylesheets="@../Css/Style2.css" text="Chatting">
@@ -181,7 +180,7 @@
                                  <children>
                                     <ScrollPane fx:id="sp_friends" layoutY="64.0" prefHeight="404.0" prefWidth="276.0">
                                        <content>
-                                          <ListView fx:id="list_friends" prefHeight="411.0" prefWidth="259.0" />
+                                          <ListView fx:id="list_friends" prefHeight="411.0" prefWidth="260.0" />
                                        </content>
                                     </ScrollPane>
                                     <HBox layoutX="10.0" layoutY="14.0" prefHeight="42.0" prefWidth="256.0" styleClass="hboxSearch">
@@ -217,7 +216,8 @@
                                           <ListView fx:id="list_groups" prefHeight="475.0" prefWidth="258.0" />
                                        </content>
                                     </ScrollPane>
-                                 </children></Pane>
+                                 </children>
+                              </Pane>
                            </content>
                         </Tab>
                      </tabs>

@@ -12,5 +12,8 @@
         <property name="groupName">
             <column name="GroupName" sql-type="nvarchar(100)" length="100"/>
         </property>
+        <property name="groupImage">
+            <column name="GroupImage" sql-type="varbinary(MAX)"/>
+        </property>
     </class>
 </hibernate-mapping>
