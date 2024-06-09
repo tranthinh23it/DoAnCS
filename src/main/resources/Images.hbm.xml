@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="DTO.Images" table="Images" schema="dbo" catalog="ChattingApplication">
+        <id name="imageId">
+            <column name="ImageID" sql-type="int"/>
+            <generator class="native"></generator>
+        </id>
+        <property name="messageId">
+            <column name="MessageID" sql-type="int"/>
+        </property>
+        <property name="senderId">
+            <column name="SenderID" sql-type="int"/>
+        </property>
+        <property name="receiverId">
+            <column name="ReceiverID" sql-type="int" not-null="true"/>
+        </property>
+        <property name="groupId">
+            <column name="GroupID" sql-type="int" not-null="true"/>
+        </property>
+        <property name="imageUrl">
+            <column name="ImageURL" sql-type="varbinary(MAX)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

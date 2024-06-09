@@ -27,6 +27,7 @@
     <mapping resource="Notifications.hbm.xml"/>
     <mapping resource="Users.hbm.xml"/>
     <mapping resource="Friends.hbm.xml"/>
+    <mapping resource="Images.hbm.xml"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

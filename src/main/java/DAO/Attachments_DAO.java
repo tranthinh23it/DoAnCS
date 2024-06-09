@@ -44,16 +44,8 @@ public class Attachments_DAO {
     }
 
     public static void main(String[] args) {
-        Attachments attachments = new Attachments();
-        attachments.setMessageId(34);
-        attachments.setFileName("file.txt");
-        attachments.setFileType("txt");
-        attachments.setFileSize(2);
-        attachments.setFileUrl("aaaaaaaaaa");
-        attachments.setSenderId(1);
-        attachments.setReceiverId(2);
-        attachments.setGroupId(-1);
-        attachments.setDataFile(new byte[0]);
-        saveMessFile(attachments);
+        Attachments attachments = loadMessFile(34);
+        System.out.println(attachments.getFileName());
+
     }
 }
