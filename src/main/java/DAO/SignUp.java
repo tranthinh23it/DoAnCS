@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,83 +14,52 @@ public class SignUp {
     private static SessionFactory sessionFactory;
 
     public static List<Users> CheckSignUp(String usname) {
-        Connected.connection(Users.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        List<Users> listCheck = new LinkedList<>();
-
-        try {
-            transaction = session.beginTransaction();
-            Query<Users> query = session.createQuery("select u from Users u WHERE u.username = :username", Users.class);
+        List<Users> userList = new LinkedList<>();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query<Users> query = session.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
             query.setParameter("username", usname);
-            listCheck = query.list();
-            transaction.commit();
+            userList = query.list();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
-        return listCheck;
+        return userList;
     }
 
     public static void SignUpAccount(String username, String password, String email, String hashedPass) {
-        Connected.connection(Users.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-
-        try {
-            transaction = session.beginTransaction();
-            Users us = new Users();
-            us.setUsername(username);
-            us.setPassword(password);
-            us.setEmail(email);
-            us.setFullName("");
-            us.setAvatarUrl(null);
-            us.setNickName(" ");
-            us.setHashed_Password(hashedPass);
-            us.setPlace(" ");
-
-            session.save(us);
-            transaction.commit();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Users user = new Users();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setFullName("");
+            user.setAvatarUrl(null);
+            user.setNickName(" ");
+            user.setHashed_Password(hashedPass);
+            user.setPlace(" ");
+            session.save(user);
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
     }
 
     public static List<Users> getUsersFromDatabase() {
-        Connected.connection(Users.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        List<Users> getUsers = new LinkedList<>();
-
-        try {
-            transaction = session.beginTransaction();
-            getUsers = session.createQuery("select u from Users u", Users.class).list();
-            transaction.commit();
+        List<Users> usersList = new LinkedList<>();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            usersList = session.createQuery("SELECT u FROM Users u", Users.class).list();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
-        return getUsers;
+        return usersList;
     }
 
-    public static void main(String[] args) {
-        String hased = PasswordUtil.hashPassword("letuankhai23");
-        SignUpAccount("Le Tuan Khai","letuankhai23","khailt.23it@vku.udn.vn",hased);
-    }
+//    public static void main(String[] args) {
+//        String hased = PasswordUtil.hashPassword("letuankhai23");
+//        SignUpAccount("Le Tuan Khai","letuankhai23","khailt.23it@vku.udn.vn",hased);
+//    }
 }

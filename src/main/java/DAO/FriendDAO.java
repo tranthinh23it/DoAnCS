@@ -13,41 +13,28 @@ import java.util.List;
 import java.util.Set;
 
 public class FriendDAO {
-    private static SessionFactory sessionFactory;
+
+    private static SessionFactory sessionFactory = Connected.getSessionFactory();
 
     public static List<Friends> listFriend() {
-        Connected.connection(FriendDAO.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
+
         List<Friends> listFriend = null;
 
-        try {
-            transaction = session.beginTransaction();
+        try (Session session = sessionFactory.openSession()) {
             Query<Friends> query = session.createQuery("select f from Friends f", Friends.class);
             listFriend = query.list();
 
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return listFriend;
     }
 
     //sendRequest
     public static void sendRequest(int userID1, int userID2) {
-        Connected.connection(FriendDAO.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
 
-        try {
-            transaction = session.beginTransaction();
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
 
             // Kiểm tra xem cặp userID đã tồn tại với trạng thái unaccepted chưa
             Query<Friends> query = session.createQuery(
@@ -79,50 +66,30 @@ public class FriendDAO {
             }
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
     }
+
     //receivedRequest
     public static List<Friends> receivedRequest(int userID) {
-        Connected.connection(FriendDAO.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
         List<Friends> listRequest = null;
 
-        try {
-            transaction = session.beginTransaction();
+        try (Session session = sessionFactory.openSession()) {
             Query<Friends> query = session.createQuery("select f from Friends f where f.userID2 = :userID and f.friendShipStatus = :status", Friends.class);
-
             query.setParameter("userID", userID);
             query.setParameter("status", "unaccepted");
             listRequest = query.list();
-
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return listRequest;
     }
+
     //acceptRequest
     public static void acceptRequest(int userID1, int userID2) {
-        Connected.connection(FriendDAO.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
 
-        try {
-            transaction = session.beginTransaction();
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
 
             Query query = session.createQuery(
                     "update Friends set friendShipStatus = :status " +
@@ -137,21 +104,15 @@ public class FriendDAO {
             query.executeUpdate();
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
     }
-    //gain the úser list by id from freind list
+
+    //gain the user list by id from friend list
     public static List<Users> convert(List<Friends> friendsList) {
         List<Users> usersList = new ArrayList<>();
         Set<Integer> userIds = new HashSet<>();
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-
             for (Friends friend : friendsList) {
                 int userId = friend.getUserID1();
                 if (!userIds.contains(userId)) {
@@ -162,8 +123,6 @@ public class FriendDAO {
                     }
                 }
             }
-
-            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

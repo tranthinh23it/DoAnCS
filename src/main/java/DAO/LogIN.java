@@ -9,49 +9,47 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LogIN {
-    private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory = Connected.getSessionFactory();
+
     public static List<Users> checkLogin(String email1,String passWord){
-        Connected.connection(Users.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
         List<Users> listCheck = new LinkedList<>();
-        Query query = session.createQuery("select u from Users u WHERE u.email = :email AND u.password= :password", Users.class);
-        query.setParameter("email",email1);
-        query.setParameter("password",passWord);
-        listCheck = query.list();
-
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query<Users> query = session.createQuery("SELECT u FROM Users u WHERE u.email = :email AND u.password = :password", Users.class);
+            query.setParameter("email", email1);
+            query.setParameter("password", passWord);
+            listCheck = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return listCheck;
     }
+
     public static List<Users> getInfor(String email){
-        Connected.connection(Users.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
         List<Users> userInfor = new LinkedList<>();
-        Query query = session.createQuery("select u from Users u WHERE u.email = :email", Users.class);
-        query.setParameter("email",email);
-        userInfor = query.list();
-
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query<Users> query = session.createQuery("SELECT u FROM Users u WHERE u.email = :email", Users.class);
+            query.setParameter("email", email);
+            userInfor = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return userInfor;
     }
     public static String getHasedCode(String email){
-        Connected.connection(Users.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Query query = session.createQuery("SELECT u.hashed_Password from Users u where u.email= :email");
-        query.setParameter("email",email);
-        String hashedPassword = query.uniqueResult().toString();
-        session.getTransaction().commit();
-        System.out.println(hashedPassword);
-        // Close session and session factory
-        session.close();
-        sessionFactory.close();
-
+        String hashedPassword = "";
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query<String> query = session.createQuery("SELECT u.hashed_Password FROM Users u WHERE u.email = :email", String.class);
+            query.setParameter("email", email);
+            hashedPassword = query.uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return hashedPassword;
     }
 

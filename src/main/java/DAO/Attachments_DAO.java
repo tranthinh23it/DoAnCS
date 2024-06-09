@@ -1,65 +1,45 @@
 package DAO;
 
 import DTO.Attachments;
-import DTO.Messages;
-import DTO.Users;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Attachments_DAO {
-    private static SessionFactory sessionFactory;
-    public static Attachments loadMessFile(int messageId){
-        Connected.connection(Users.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        List<Attachments> messagesList = new ArrayList<>();
+    private static SessionFactory sessionFactory = Connected.getSessionFactory();
+
+    public static Attachments loadMessFile(int messageId) {
         Attachments attachments = null;
-        try {
-            transaction = session.beginTransaction();
-            Query query = session.createQuery(
+        try (Session session = sessionFactory.openSession()) {
+            Query<Attachments> query = session.createQuery(
                     "select m from Attachments m where m.messageId = :messageId",
                     Attachments.class
             );
             query.setParameter("messageId", messageId);
-            messagesList = query.list();
+            List<Attachments> messagesList = query.list();
 
             if (!messagesList.isEmpty()) {
                 attachments = messagesList.get(0);
             }
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return attachments;
     }
-    public static void saveMessFile(Attachments attachments){
-        Connected.connection(Attachments.class);
-        sessionFactory = Connected.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.save(attachments);
-            transaction.commit();
 
-        } catch (Exception e) {
-            if (transaction != null) {
+    public static void saveMessFile(Attachments attachments) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                session.save(attachments);
+                transaction.commit();
+            } catch (Exception e) {
                 transaction.rollback();
+                e.printStackTrace();
             }
-            e.printStackTrace();
-        } finally {
-            session.close();
         }
     }
 
